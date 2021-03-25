@@ -38,16 +38,20 @@ class User:
     def post(self, thread, content, file=None):
         """Poste un message dans un fil de discussion."""
         if file:
-            post = FilePost(self, "aujourd'hui !", content, file)
+            post = FilePost(self, "aujourd'hui", content, file)
         else:
-            post = Post(user=self, time_posted="aujourd'hui !", content=content)
+            post = Post(user=self, time_posted="aujourd'hui", content=content)
         thread.add_post(post)
         return post
 
     def make_thread(self, title, content):
         """Créé un nouveau fil de discussion."""
-        post = Post(self, "aujourd'hui !", content)
-        return Thread(title, "aujourd'hui !", post)
+        post = Post(self, "aujourd'hui", content)
+        return Thread(title, "aujourd'hui", post)
+
+    def __str__(self):
+        """représentation de l'utilisateur."""
+        return self.username
 
 
 class Moderator(User):
@@ -88,6 +92,12 @@ class FilePost(Post):
         self.content = content
         self.file = file
 
+    def display(self):
+        """Affiche le contenu et le fichier."""
+        super().display()
+        print("pièce jointe:")
+        self.file.display()
+
 
 class Thread:
     """Fil de discussions."""
@@ -105,9 +115,13 @@ class Thread:
 
     def display(self):
         """Affiche le fil de discussion."""
-        print(f"{self.title}, le {self.time_posted}")
+        print("----- THREAD -----")
+        print(f"titre: {self.title}, date: {self.time_posted}")
+        print()
         for post in self.posts:
             post.display()
+            print()
+        print("------------------")
 
     def add_post(self, post):
         """Ajoute un post."""

@@ -58,16 +58,20 @@ class User:
     def post(self, thread, content, file=None):
         """Poste un message dans un fil de discussion."""
         if file:
-            post = FilePost(self, "aujourd'hui !", content, file)
+            post = FilePost(self, "aujourd'hui", content, file)
         else:
-            post = Post(user=self, time_posted="aujourd'hui !", content=content)
+            post = Post(user=self, time_posted="aujourd'hui", content=content)
         thread.add_post(post)
         return post
 
     def make_thread(self, title, content):
         """Créé un nouveau fil de discussion."""
-        post = Post(self, "aujourd'hui !", content)
-        return Thread(title, "aujourd'hui !", post)
+        post = Post(self, "aujourd'hui", content)
+        return Thread(title, "aujourd'hui", post)
+
+    def __str__(self):
+        """représentation de l'utilisateur."""
+        return self.username
 
 
 class Moderator(User):
@@ -94,7 +98,7 @@ class Post:
 
     def display(self):
         """Affiche le message."""
-        print(f"Message posté par {self.user} le {self.time_posted}:")
+        print(f"-- Message posté par {self.user} {self.time_posted} --")
         print(self.content)
 
 
@@ -108,8 +112,9 @@ class FilePost(Post):
 
     def display(self):
         """Affiche le contenu et le fichier."""
-        self.file.display()
         super().display()
+        print("pièce jointe:")
+        self.file.display()
 
 
 class Thread:
@@ -128,9 +133,13 @@ class Thread:
 
     def display(self):
         """Affiche le fil de discussion."""
-        print(f"{self.title}, le {self.time_posted}")
+        print("----- THREAD -----")
+        print(f"titre: {self.title}, date: {self.time_posted}")
+        print()
         for post in self.posts:
             post.display()
+            print()
+        print("------------------")
 
     def add_post(self, post):
         """Ajoute un post."""
@@ -152,7 +161,9 @@ def main():
     response = moderator.post(cake_thread, content="C'est hors sujet sur ce forum 😕")
     cake_thread.display()
 
+    print()
     print("après quelques minutes, le modérateur supprime les messages hors sujets...")
+    print()
     # importer time n'était pas necessaire, c'est un plus:
     time.sleep(2)
     moderator.delete(cake_thread, irrelevant_post)
