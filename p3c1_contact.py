@@ -53,10 +53,10 @@ class TextContactSystem(ContactSystem):
 class OwlContactSystem(ContactSystem):
     """Envoi un message en utilisant une chouette ! 🧙‍♂️"""
 
-    def __init__(self, adress):
-        """Initialise l'adresse."""
-        varify_adress(adress)
-        self.adress = adress
+    def __init__(self, address):
+        """Initialise l'addresse."""
+        varify_address(address)
+        self.address = address
         self.owl = "Hedwige"
         super().__init__()
 
@@ -66,10 +66,10 @@ class OwlContactSystem(ContactSystem):
 
     def __str__(self):
         """Représentation."""
-        return f"L'addresse est '{self.adress}'"
+        return f"L'addresse est '{self.address}'"
 
 
-def varify_adress(adress):
+def varify_address(address):
     """Fausse fonction qui retourne True."""
     return True
 

@@ -7,10 +7,10 @@ from contact.helpers import verify_adress
 class OwlContactSystem(ContactSystem):
     """Envoi un message en utilisant une chouette ! 🧙‍♂️"""
 
-    def __init__(self, adress):
+    def __init__(self, address):
         """Initialise l'adresse."""
-        verify_adress(adress)
-        self.adress = adress
+        verify_adress(address)
+        self.address = address
         self.owl = "Hedwige"
         super().__init__()
 
@@ -20,4 +20,4 @@ class OwlContactSystem(ContactSystem):
 
     def __str__(self):
         """Représentation."""
-        return f"L'addresse est '{self.adress}'"
+        return f"L'addresse est '{self.address}'"
