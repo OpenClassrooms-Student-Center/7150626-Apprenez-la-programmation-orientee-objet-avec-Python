@@ -35,15 +35,12 @@ class FriendCleaner:
 
         Attention ici l'exercice consistait à utiliser
         de vrais objets films et pas juste le nom du film !
-
-        Ici nous gérons les exceptions avec le block try / except.
-        Nous verrons cela dans la prochaine partie ! :)
         """
         name = data[self.NAME_INDEX]
-        try:
+        if len(data) > 1:
             film_name = data[self.FILM_INDEX]
             film = library.find_by_name(film_name)
-        except IndexError:
+        else:
             film = None
 
         return Friend(name, film)
@@ -54,7 +51,10 @@ class FriendCleaner:
         Attrs:
         - library (Library) : une instance de bibliothèque de films.
 
-        Note: j'utilise ici une liste de compréhension. Renseignez vous
-        sur son utilisation si vous ne savez pas les utiliser
+        Note: On pourrait aussi utiliser une liste de compréhension ici.
         """
-        return [self.generate(data, library) for data in self.friends]
+        result = []
+        for data in self.friends:
+            friend = self.generate(data, library)
+            result.append(friend)
+        return result

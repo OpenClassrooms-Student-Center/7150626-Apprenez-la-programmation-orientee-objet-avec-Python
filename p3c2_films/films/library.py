@@ -34,10 +34,13 @@ class Library:
     def get_films_lent(self):
         """retourne la liste des films prêtés.
 
-        Note: j'utilise ici une liste de compréhension. Renseignez vous
-        sur son utilisation si vous ne savez pas les utiliser
+        Note: On pourrait aussi utiliser une liste de compréhension ici.
         """
-        return [film for film in self.films if film.where is not self]
+        films_lent = []
+        for film in self.films:
+            if film.where is not self:  # le film n'est pas dans la bibliothèque
+                films_lent.append(film)
+        return films_lent
 
     def find_by_name(self, name):
         """Retourne un film si le nom correspond, sinon None."""

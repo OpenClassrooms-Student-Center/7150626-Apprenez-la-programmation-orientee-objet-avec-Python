@@ -1,7 +1,7 @@
 """Donne des méthodes d'aides pour l'utilisation du système de contact."""
 
 
-def verify_adress(adress):
+def verify_adress(address):
     """Fausse fonction qui retourne True."""
     return True
 
